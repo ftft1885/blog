@@ -180,3 +180,10 @@ http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Conn
 
 如何做keep-alive的代理
 --------------
+要注意的是keepalived这个软件并不是用来做http keep-alive的
+
+keepalived是用来健康检查自动调节的软件
+
+那怎么写支持keep-alive的代理呢。哦 就是直接用http7层代理呀~
+
+完
