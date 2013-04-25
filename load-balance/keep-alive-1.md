@@ -1,4 +1,4 @@
-keep-alive
+HTTP Keep-alive
 =============
 
 保持keep-alive是代理服务器的难点
@@ -17,9 +17,9 @@ tcp也有keep-alive，但是和http的keep-alive毫无关系
 
 他的值还有参数，比如Keep-alive: max=5, timeout=120
 
-只不过http1.1已经废弃了。1.1如何配置max和timeout，我还不知道。
+只不过http1.1已经废弃了。1.1如何用nodejs配置max和timeout，我还不知道。apache貌似是可以的
 
-不keep-alive会怎样
+如果不keep-alive会怎样
 -----
 我尝试用nodejs的http模拟connection 关闭。
 
@@ -36,15 +36,6 @@ agent是参数，在http.request中没有connection这个option
 
 我看keep-alive大致的意思是不需要重新建立tcp的三次握手，就是说不释放连接。看有没有释放连接我只会看端口，即：`req.connection.remotePort`
 
-不幸的是端口不管怎么都不会变（是不是释放了有重新建立了个一样端口的tcp连接啊。。），而且每次尝试端口都是像以前那样递增的。可能是我就一个client的缘故，看不出区别，或者我完全理解错了。
-
-keep-alive作用
---------
-总之keep-alive就是保持tcp不释放，省去了没发一次包就要重新建立tcp连接的过程，节省不少性能开销
-
-
-熄灯后看出了区别！
-------------
 Connection: close的时候(agent: false)
 
  > 连发100次请求
@@ -86,6 +77,10 @@ Connection: keep-alive
 keep-alive场景
 ----
 
+keep-alive作用
+--------
+总之keep-alive就是保持tcp不释放，省去了没发一次包就要重新建立tcp连接的过程，节省不少性能开销
+
 keep-alive总结
 -----
 1. 由上面的实验可以得知，keep-alive并不是不停的用同一个端口。而是重复用几个端口
@@ -94,9 +89,9 @@ keep-alive总结
 
 3. keep-alive对服务端来说省下很多性能开销。减少了握手次数，减少了端口占用。
 
-（proxy）为何难以处理keep-alive
+proxy（代理）为何难以处理keep-alive
 -------------------
-先看4层的负载均衡（lvs）
+先看4层的负载均衡（如lvs）
 
 http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Connection: keep-alive
 
@@ -104,7 +99,7 @@ http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Conn
 
 但是服务端是支持keep-alive的。客户端发送keep-alive请求，代理盲目转发，服务端看到keep-alive，也回复keep-alive表示支持keep-alive。
 
-于是客户端兴高采烈像连过的端口发送请求。但是代理觉得很奇怪，我端口都用到56000了，你给我发个55500的请求（打个比方），代理并不认为是刚才的连接（事实上他可能已经关闭了），所以代理直接忽略了这个想不握手就发信息的请求。
+客户端兴高采烈向连过的端口发送请求。但是代理觉得很奇怪，“我端口都用到56000了，你怎么给我发个55500的请求？（打个比方）”，代理并不认为是刚才的连接（事实上他可能已经关闭了），所以代理直接忽略了（可能返回rst）这个想不握手就发信息的请求。
 
 而后端真正的服务器以为客户端还要继续发送消息。于是就不释放连接。导致占用资源
 
@@ -127,8 +122,7 @@ http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Conn
 				client.write(data);
 			});
 			var dd = "";
-			client.on('data', function(_d) {
-				//console.log(_d+'');
+			client.on('data', function(_d) {			
 				dd += _d;
 			})
 			client.on('end', function() {
@@ -174,16 +168,16 @@ http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Conn
 	58169
 	58170
 
-又回复了5个。显然是timeout了。所以客户端只能重新握手（可能代理发现端口不对，就发送rst吧）。可以看出keep-alive其实不会丢失信息。只不过非常慢，如果把timeout的时间改小，还是能快速回复的，当然，这早就不是keep-alive了。
+又回复了5个。看来我想错了，1分钟大概是timeout时间。所以客户端只能重新握手（可能代理发现端口不对，就发送rst吧）。可以看出keep-alive其实不会丢失信息。只不过非常慢，如果把timeout的时间改小，还是能快速回复的，当然，这早就不是keep-alive了。
 
-所以说如果要简单的4层代理的话，那就是关闭keep-alive，但是这对代理和服务器都会造成巨大的性能耗费
+所以说如果要简单的4层代理的话，那必须关闭keep-alive，但是这对代理和服务器都会造成巨大的性能耗费
 
 如何做keep-alive的代理
 --------------
 要注意的是keepalived这个软件并不是用来做http keep-alive的
 
-keepalived是用来健康检查自动调节的软件
+keepalived是用来健康检查自动调节负载配置的软件
 
-那怎么写支持keep-alive的代理呢。哦 就是直接用http7层代理呀~
+那怎么写支持http keep-alive的代理呢。哦 就是直接用http7层代理呀~
 
 完
