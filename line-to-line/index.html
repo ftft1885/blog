@@ -1,0 +1,389 @@
+<!doctype html>
+<!--
+	本人学生狗，
+	打dota之余写的，
+	代码丑陋求亲喷，
+	内涵bug，
+	最讨厌修bug所以没管，
+	
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>line-to-line beta0.1</title>
+</head>
+<style>
+* {
+	margin : 0;
+	padding : 0;
+}
+body {
+	background : #333;
+}
+canvas {
+	position : absolute;
+	left : 50%;
+	top : 50%;
+	margin : -250px -350px;
+	background : #999;
+}
+</style>
+<body>
+<canvas width=700 height=500 id="container">
+<a href="http://chrome.google.com">please install chrome</a>
+</canvas>
+</body>
+<script>
+window.onload = function(){
+	getConfig();
+	loadImg(Config.pickind,draw);	//10 pic now
+}
+
+function draw(){
+	/*
+	var img = new Image();
+	img.src = Config.picpath + 1 + ".jpg";
+	console.log(img.src);
+	img.onload = function(){
+		ctx.drawImage(img,50,50);
+	}
+	*/
+	for(var i = 0; i < Config.colnum; i++){
+		Config.picid[i] = [];
+	}
+	for(var i = 0; i < Config.colnum; i++){
+		for(var j = 0; j < Config.rownum; j++){
+			
+			//var random_num = getRandomNum();
+			Config.picid[i][j] = getRandomNum();
+			var size = Config.picsize;
+			drawImg(Config.imgArr[Config.picid[i][j]],i,j);			
+		}
+	}
+	canvas.onclick = function(e){
+		var x = e.clientX - canvas.offsetLeft;
+		var y = e.clientY - canvas.offsetTop;
+		if(x < 0 || y < 0) return;
+		var col = parseInt(x / 50);
+		var row = parseInt(y / 50);
+		
+		if(isGone(col,row)){
+			return ;
+		}
+		
+		if(Config.select[0] >= 0) {
+			if(!isActive(col,row)) {
+				if(isSamePic(col,row) && isRightPath(col,row)) 				
+				{
+					Config.isGone.push([col,row],[Config.select[0],Config.select[1]]);					
+					
+					Config.select = [-1,-1];
+					if(Config.isGone.length >= Config.picnum){
+						alert("SUCCESS! ");
+					}
+				}
+					
+				
+				else { 
+					deActive(Config.select[0],Config.select[1]);
+					active(col,row)
+				}
+				//active(col,row);
+			}
+			else {
+				Config.select = [-1,-1];
+				deActive(col,row);
+			}
+		}
+		
+		else {
+			active(col,row);
+		}
+	}
+}
+
+function isRightPath(col,row){
+	//check0(col,row);
+	var corner = 0;
+	var result = checkRightPath(corner,col,row);
+	if(!result){
+		result = checkRightPath(corner+1,col,row);
+		if(!result){
+			result = checkRightPath(corner+2,col,row);
+		}
+	}	
+	if(result){
+		var select = Config.select
+		var type = typeof result[1];
+		switch(type){
+			case 'undefined':	drawLine([col,row],select);
+				break;
+				
+			case 'number'	:	drawLine([col,row],result,select);
+				break;
+			
+			case 'object'	:	drawLine([col,row],result[0],result[1],select);
+				break;
+		}
+	}
+	return result;
+}
+
+function drawLine()
+{
+	console.log(arguments);	
+	
+	ctx.beginPath(); 
+	ctx.lineCap='square'; 
+	ctx.lineWidth = 5;
+	ctx.strokeStyle = 'rgba(255,0,0,0.5)'; 
+	ctx.moveTo(arguments[0][0]*50+25,arguments[0][1]*50+25);
+	for(var i = 1; i < arguments.length; i++){
+		ctx.lineTo(arguments[i][0]*50+25,arguments[i][1]*50+25);
+		
+		if(arguments[i-1][0] == arguments[i][0]){
+			if(arguments[i-1][1] > arguments[i][1]){
+				for(var m = arguments[i][1]; m <= arguments[i-1][1]; m++){
+					clearImg(arguments[i-1][0],m);
+				}
+			}
+			else{
+				for(var m = arguments[i-1][1]; m <= arguments[i][1]; m++){
+					clearImg(arguments[i-1][0],m);
+				}
+			}
+		}
+		else{		
+			if(arguments[i-1][0] > arguments[i][0]){
+				for(var m = arguments[i][0]; m <= arguments[i-1][0]; m++){
+					clearImg(m,arguments[i-1][1]);
+				}
+			}
+			else{
+				for(var m = arguments[i-1][0]; m <= arguments[i][0]; m++){
+					clearImg(m,arguments[i-1][1]);
+				}
+			}
+		}
+		
+		
+	}
+	ctx.stroke(); 	
+	clearGonePic(arguments);
+}
+
+function clearGonePic(){
+	console.log(arguments);
+	//clearImg(Config.select[0],Config.select[1]);
+	//clearImg(col,row);
+}
+
+function checkRightPath(corner,col,row,sel1,sel2){
+	//console.log(arguments);
+	if(corner == 3){return false;}
+	var select = Config.select;	
+	if(arguments.length > 4){
+		select = [sel1,sel2];
+	}
+	switch(corner){
+		case 0:
+			if(col == select[0]){
+				if(Math.abs(row - select[1]) <= 1){						
+					return true;
+				}
+				else{					
+					if(row > select[1]){
+						for(var i = select[1]+1; i <= row-1; i++){							
+							if(!isGone(col,i)){
+								return false;
+							}							
+						}
+					}
+					else{
+						for(var i = row+1; i <= select[1]-1; i++){							
+							if(!isGone(col,i)){
+								return false;
+							}							
+						}
+					}					
+					return true;
+				}
+			}
+			else if(row == select[1]){
+				if(Math.abs(col - select[0]) <= 1){
+					return true;
+				}
+				else{
+					if(col > select[0]){
+						for(var i = select[0]+1; i <= col-1; i++){							
+							if(!isGone(i,row)){
+								return false;
+							}							
+						}
+					}
+					else{
+						for(var i = col+1; i <= select[0]-1; i++){							
+							if(!isGone(i,row)){
+								return false;
+							}							
+						}
+					}					
+					return true;
+				}
+			}
+			return false;
+			break;
+			
+		case 1:
+			var select = Config.select;	
+				
+			var test1 = [col,select[1]];	
+			
+			if(isGone(test1[0],test1[1])){
+				if( checkRightPath(0,col,row,test1[0],test1[1]) && checkRightPath(0,test1[0],test1[1]) ){					
+					return test1;
+				}
+			}			
+			
+			var test2 = [select[0],row];
+			if(isGone(test2[0],test2[1])){
+				if( checkRightPath(0,col,row,test2[0],test2[1]) && checkRightPath(0,test2[0],test2[1]) ){					
+					return test2;
+				}
+			}
+				
+			return false;
+			break;
+			
+		case 2:
+			var select = Config.select;
+			//col search
+			for(var i = 0; i < Config.colnum; i++){
+				if(isGone(i,row)){
+					var _test1 = checkRightPath(0,col,row,i,row);
+					var _test2 = checkRightPath(1,i,row);
+					if(_test1 && _test2){	
+						return [[i,row],_test2];
+					}
+					
+				}
+			}
+			//row search
+			for(var i = 0; i < Config.rownum; i++){
+				if(isGone(col,i)){
+					var _test1 = checkRightPath(0,col,row,col,i);
+					var _test2 = checkRightPath(1,col,i);
+					if(_test1 && _test2){						
+						return [[col,i],_test2];
+					}
+						
+				}
+			}
+			return false;
+			break;
+	}
+	return true;
+}
+
+function isGone(col,row){
+	//var _ = Config.isGone.indexOf([col,row]);
+	var arr = [col,row];
+	for(var key in Config.isGone){		
+		if(col == Config.isGone[key][0] && row == Config.isGone[key][1]){			
+			return 1;
+		}
+	}	
+	return 0;
+}
+
+function isSamePic(col,row){
+	var selectPicId = Config.picid[Config.select[0]][Config.select[1]];
+	var clickPicId = Config.picid[col][row];
+	if(selectPicId == clickPicId){
+		return 1;
+	}
+	return 0;
+}
+
+function isActive(col,row){
+	if(col == Config.select[0] && row == Config.select[1])
+		return 1;
+	return 0;
+}
+
+function drawImg(img,x,y){
+	var size = Config.picsize;
+	ctx.drawImage(img,0,0,size,size,x*50+4,y*50+4,size-8,size-8);
+}
+
+function clearImg(x,y){
+	var size = Config.picsize;
+	setTimeout(function(){
+		ctx.clearRect(x*50,y*50,size,size);
+	},500);
+}
+
+function active(col,row){
+	Config.select = [col,row];				
+	var size = Config.picsize;
+	ctx.fillStyle = "#FF6600";
+	ctx.fillRect(col*50,row*50,size,size);
+	drawImg(Config.imgArr[Config.picid[col][row]],col,row);		
+}
+
+function deActive(col,row){
+	var size = Config.picsize;	
+	ctx.clearRect(col*50,row*50,size,size);
+	drawImg(Config.imgArr[Config.picid[col][row]],col,row);		
+}
+
+function getRandomNum(){
+	var _num = parseInt(Math.random()*10);			
+	if(!Config.checkRandom[_num]){
+		Config.checkRandom[_num] = 1;	
+		return _num;
+	}
+	if(Config.checkRandom[_num] >= Config.picnum / Config.pickind){
+		_num = getRandomNum();
+		return _num;
+	}
+	else {
+		Config.checkRandom[_num] ++;
+		return _num;
+	}
+}
+
+function getConfig(){	
+	window.canvas = document.getElementById('container');
+	window.ctx = canvas.getContext('2d');
+	window.Config = {
+		picsize	:	50,
+		pickind	:	10,
+		colnum	:	canvas.width / 50,
+		rownum	:	canvas.height / 50,
+		picnum	:	canvas.width / 50 * canvas.height / 50,		
+		picpath	:	'./',
+		imgArr	:	[],
+		checkRandom	:	{},
+		picid	:	[],
+		select	:	[-1,-1],
+		lastselect	:	[],	
+		isGone	:	[],
+	};	
+}
+
+function loadImg(num,callback){
+	var count = 0;
+	for(var i = 1; i < num + 1; i++){
+		var _path = Config.picpath + i + ".jpg";
+		Config.imgArr[i-1] = new Image();			
+		Config.imgArr[i-1].src = _path;
+		Config.imgArr[i-1].onload = function(){
+			if(++count >= num){
+				callback();
+			}			
+		}
+	}	
+}
+</script>
+</html>

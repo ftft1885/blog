@@ -1,0 +1,30 @@
+/*
+@font-face {
+	font-family: 'awesome';   
+    src: url('awesome.ttf') format('truetype');  
+}
+*/
+@font-face{
+	font-family: 'uxi';
+	src: url('uxi.ttf') format('truetype');
+}
+
+
+.uxi{
+	font-family: uxi;
+	font-size: 40px;
+}
+/*
+.icon{
+	font-family: "awesome";
+	font-size: 40px;
+	font-style:normal;
+}
+*/
+
+.icon:before{
+	color: blue;
+	font-family: uxi;
+	font-size: 40px;
+	content: "a";
+}

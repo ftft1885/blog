@@ -1,0 +1,152 @@
+.type8 a{
+	cursor: pointer;
+	width: 100px;
+	height: 30px;	
+	color: #fff;
+	background: #222;	
+	padding: 10px;
+	-webkit-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+}
+.type8 a:hover{
+	margin-left: 20px;
+	padding-left: 20px;
+	font-weight: bold;
+	color: #222;
+	background: #ccc;
+	border-radius: 10px;
+}
+
+.type7-menu1st{
+	text-align: center;
+	min-height: 100px;
+}
+.type7-menu1st a{
+	text-decoration: none;
+	line-height: 40px;
+}
+.type7-menu1st li{
+	list-style-type: none;
+}
+.type7-menu1st > li {
+	float: left;
+	background: blue;
+}
+.type7-menu1st > li:hover > ul{
+	display: block;
+	background: #ccc;
+
+}
+.type7-menu1st > li > a{
+	color: #eee;
+	padding: 0 15px;
+}
+.type7-menu1st > li > ul{	
+	padding-left: 0;
+	background: #fff;
+	display: none;
+}
+.type7-menu1st > li > ul a{
+	color: #222;
+	border-bottom: 2px solid #222;
+}
+
+.type7 hr{
+	clear: both;
+}
+
+
+.type6-list{
+	width: 600px;
+	min-height: 100px;	
+}
+.type6-item{
+	display: inline-block;
+	box-sizing: border-box;
+	vertical-align: top;
+	min-height: 80px;
+	background: #888;
+	padding: 15px;
+	width: 200px;
+	border: 2px solid #EEE;
+}
+.type6 p{
+	height: 60px;
+	background: #EEE;
+}
+
+.type5{
+	box-sizing: border-box;
+	width: 240px;
+}
+.type5 label{	
+	margin-left: 0;
+	padding-left: 0;
+	display: inline-block;
+	width: 78px;
+}
+.type5 input[type="text"]{
+	margin-right: 0;
+	padding-right: 0;
+	width: 156px;
+}
+.type5 button{
+	float: right;
+}
+
+
+.type1 dt,dd{
+	width: 100px;
+	display: inline-block;
+	vertical-align: top;
+}
+.type1 ul{
+	margin: 0;
+	padding-left: 0;
+}
+
+/*----*/
+
+.type2 blockquote{
+	margin: 0;
+	width: 400px;
+	text-align: center;
+	border: 2px solid #CCC;
+	line-height: 80px;
+}
+
+.type3 code{
+	padding: 10px;
+	text-align: center;
+	border: 2px solid red;
+	height: 80px;
+	width: 200px;
+	display: table;
+	
+}
+.type3 span{
+	vertical-align: middle;
+	display: table-cell;
+	border: 2px solid blue;
+	margin: 0 auto;
+	height: 30px;
+	line-height: 30px;
+}
+
+.type4 ul{
+	list-style-type: none;
+	border: 2px solid #CCC;
+	height: 80px;
+	line-height: 80px;
+}
+.type4 li{
+	float: left;
+	margin:0 05px;
+}
+.type4 a{	
+	padding: 0 10px;
+	background: yellow;
+}
+.type4 hr{
+	clear: both;
+}
