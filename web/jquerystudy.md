@@ -1,3 +1,4 @@
+ignore:1
 title:jquery入门学习
 tag:jquery
 date:2013/1/19

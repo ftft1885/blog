@@ -4,7 +4,7 @@ tag:css
 
 是时候学习css了。
 
-[我的css练习小册子](/blog/css/mycss.html)
+[我的css练习小册子](./mycss.html)
 
 最近依然需要大量的切图。css是我浪费时间最多的地方。原因显然是我的css太弱了。
 
