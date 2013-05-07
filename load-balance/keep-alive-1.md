@@ -92,7 +92,7 @@ keep-alive总结
 
 proxy（代理）为何难以处理keep-alive
 -------------------
-先看4层的负载均衡（如lvs）
+先看4层的负载均衡
 
 http协议是7层的，所以4层的tcp负载均衡并不认识http的首部Connection: keep-alive
 
