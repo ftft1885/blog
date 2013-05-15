@@ -1,3 +1,4 @@
+ignore:1
 title:面试
 date:2013/5/8
 
