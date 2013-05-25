@@ -72,7 +72,7 @@ E[attr|=value]: hyphen-separated连接线匹配符
     <p test="bbb-asas-aaa">bbb</p>
     <p test="asdberer-aaa">ccc</p>
 
-可以看出连接线匹配符会匹配连接符第一个字符串,所以常用于lang的语言匹配(zh-CN,zh_TW)
+可以看出连接线匹配符会匹配连接符第一个字符串,所以常用于lang的语言匹配(zh-CN,zh-TW)
 
 当然用来分类也是不错哒.name以后就用`-`来分类好了.
 
