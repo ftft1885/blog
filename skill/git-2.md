@@ -1,6 +1,8 @@
 title:玩转github
 date:19:16 2013/5/30
 
+取个题目叫玩转真是虚，以前只敢叫`初探，入门笔记`云云，不过github毕竟是托管服务，它的难点多数在git工具本身。github只要会用就行啦
+
 github提供了自己的git训练<http://training.github.com/>
 
 用git不玩玩[github](https://github.com/)那就蠢死了，github是托管服务。你也许会说我自己也会搭个git服务器额，那确实，但是github提供展示的功能，以及多人合作，进度可视化等很多自己搭服务器所没有的功能。github还提供付费服务<https://github.com/plans>，可以看到github完全没有public repo数量的限制。这相当于是无限容量额。。
