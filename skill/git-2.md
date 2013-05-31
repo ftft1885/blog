@@ -1,4 +1,4 @@
-title:使用github
+title:玩转github
 date:19:16 2013/5/30
 
 github提供了自己的git训练<http://training.github.com/>
@@ -11,7 +11,7 @@ github提供了windows osx linux的客户端，但其实并不推荐，特别是
 
 https
 ------
-github一个特点就是支持https提交（remote是https协议），就是通过github账号和密码来提交，这使得根本不需要在电脑上保存ssh-key就可以提交代码，所以你可以随便在其他电脑上clone自己的repo，而不用担心repo被其他人修改到github上去。
+github一个特点就是支持https提交（remote是https协议），就是通过github账号和密码来提交，这使得根本不需要在电脑上保存ssh-key就可以提交代码，所以你可以随便在其他电脑上clone自己的repo，而不用担心repo被其他人修改并push到github上去。
 
 Pages
 =========
@@ -29,7 +29,7 @@ Project Page
 ----------
 project page指的是一个repo的专属page，访问路径是`<yourname>.github.io/<reponame>`
 
-与user的pages相比project page只有一个不同，就是project page虽然用的是同一个repo，但用的是gh-pages这个分支。
+与user的pages相比project page只有一个不同，就是project page虽然用的是同一个repo，但用的是gh-pages这个分支（github-pages的简称啦）。
 
 project page的教程<https://help.github.com/articles/creating-project-pages-manually>
 
@@ -41,21 +41,33 @@ Organization（在账号设置/organizations中）
 ----------
 这是一种团队合作，所有账号都是平等的。但是不推荐这种东西。（因为我还没看懂怎么用）
 
+fork后pull request
+---------
+最常用的方式，也就是普通人参与大项目的方式，fork并修改后，点击Pull Request，就能看到一个repo向另一个repo申请merge的请求了。
+
+而在repo主人那个账号上，也能看到Pull Requests加了个1，issue也加了1,repo的主人merge后request和issue都减1。这种合作方式我称之为弱合作，因为主人只是看到申请merge，主人只有确认merge你的commit才会被采纳。 而下面要讲的强合作collaboration是直接修改owner/repo这个repo的，合作者都不需要fork，同一个repo，也说不上merge，就是单纯的commit。
+
 Collaboration（合作者）
 --------
 这个是repo的功能，在repo设置中的Collaboration中。我把这种合作方式称为强合作，因为合作者也可以直接修改其中的内容。因此这也是一种危险的动作，等于直接把自己房间的钥匙交给了别人，github中需要输入密码才可以添加合作者。
 
 在repo的主人把你加为Collaboration后，你的repo中的会自动出现那个repo，这并不是一个fork，而是直接是source。
 
-加入合作者用大白话说就是用合作者的密码也可以向remote提交了。不过问题是提交过去居然还是原作者提交的。也就是说看不到合作者名字的贡献。这实在让我不解，难道是我搞错了么？带有贡献值的合作还是要靠fork了(有待考证，因为我是在同一个电脑上弄的。)
+加入合作者用大白话说就是用合作者的密码也可以向remote提交了。如果你发现自己的提交依然算在作者头上，那是因为你没有修改自己commit的user.email。（注意： github并不以user.name来确认提交的作者，而是单单用user.email，所以必须把user.email改为自己在github上注册的邮箱才行--`git config user.email <myemail>`）
 
-fork后pull request
----------
-最常用的方式，也就是普通人参与大项目的方式，fork并修改后，点击Pull Request，就能看到一个repo向另一个repo申请merge的请求了。
+这样的提交才会算到自己头上，才会Graph中的contribution中出现自己的贡献。
+![](git-1.png)
 
-而在repo主人那个电脑上，也能看到Pull Requests加了个1，issue也加了1,repo的主人merge后request和issue都减1.非常不幸的是fork依然没看到我另一个github账号的贡献。我去，我真不知道咋回事了。
+那小段曲线就是一个基本的可视化，上面显示了2个作者，4次commits，1个merge。 所有的collaboration都是commit，pull request则属于merge。
 
+在Graphs中的Contribution中，贡献更是一目了然
+![](git-2.png)
 
+如果你有幸成为Collaboration，那repo主人一定太信任你了。
+
+可以说github最大的贡献除了可以分享代码，应该就是进度和贡献可视化了。这是公司自己搭git服务器所不能比拟的。
+
+待续。。。
 
 
 
