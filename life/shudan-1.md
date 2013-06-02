@@ -1,4 +1,4 @@
-title:6月书单
+﻿title:6月书单
 date:12:40 2013/6/2
 
 亚马逊图书6月封顶4.9折，不买是傻子
@@ -13,9 +13,9 @@ date:12:40 2013/6/2
 
 - [程序员修炼之道:从小工到专家](http://www.amazon.cn/gp/product/B004GV08CY/ref=as_li_ss_tl?ie=UTF8&camp=536&creative=3132&creativeASIN=B004GV08CY&linkCode=as2&tag=aqee-23)
 
-- [代码大全]( http://www.amazon.cn/gp/product/B0061XKRXA/ref=ox_sc_act_title_1?ie=UTF8&psc=1&smid=A1AJ19PSB66TG)
+- [代码大全](http://www.amazon.cn/gp/product/B0061XKRXA/ref=ox_sc_act_title_1?ie=UTF8&psc=1&smid=A1AJ19PSB66TG)
 
-- [不要让我思考]( http://www.amazon.cn/gp/product/B0011BTJV8/ref=ox_sc_act_title_2?ie=UTF8&psc=1&smid=A1AJ19PSB66TGU)
+- [不要让我思考](http://www.amazon.cn/gp/product/B0011BTJV8/ref=ox_sc_act_title_2?ie=UTF8&psc=1&smid=A1AJ19PSB66TGU)
 
 ### 这篇文章也介绍了大量的书
 
@@ -45,7 +45,7 @@ date:12:40 2013/6/2
 
 - [设计师要懂心理学]( http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%A6%81%E6%87%82%E5%BF%83%E7%90%86%E5%AD%A6-%E9%AD%8F%E5%9B%A0%E7%94%B3%E5%85%8B/dp/B00COG458G/ref=sr_1_1?ie=UTF8&qid=1370149666&sr=8-1&keywords=%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%A6%81%E6%87%82%E5%BF%83%E7%90%86%E5%AD%A6)
 
--[代码的未来]( http://www.amazon.cn/%E4%BB%A3%E7%A0%81%E7%9A%84%E6%9C%AA%E6%9D%A5-%E6%97%A5-%E6%9D%BE%E6%9C%AC%E8%A1%8C%E5%BC%98/dp/B00D1HUYVE/ref=sr_1_1?ie=UTF8&qid=1370149887&sr=8-1&keywords=%E4%BB%A3%E7%A0%81%E7%9A%84%E6%9C%AA%E6%9D%A5)
+- [代码的未来]( http://www.amazon.cn/%E4%BB%A3%E7%A0%81%E7%9A%84%E6%9C%AA%E6%9D%A5-%E6%97%A5-%E6%9D%BE%E6%9C%AC%E8%A1%8C%E5%BC%98/dp/B00D1HUYVE/ref=sr_1_1?ie=UTF8&qid=1370149887&sr=8-1&keywords=%E4%BB%A3%E7%A0%81%E7%9A%84%E6%9C%AA%E6%9D%A5)
 
 - [精彩绝伦的CSS]( http://www.amazon.cn/%E7%B2%BE%E5%BD%A9%E7%BB%9D%E4%BC%A6%E7%9A%84CSS-Meyer/dp/B008F4VJ94/ref=sr_1_1?s=books&ie=UTF8&qid=1370150114&sr=1-1&keywords=%E7%B2%BE%E5%BD%A9%E7%BB%9D%E4%BC%A6%E7%9A%84CSS)
 
@@ -67,5 +67,4 @@ date:12:40 2013/6/2
 ### 看完这些书就成为大牛了吧，哦，你也许还需要这本书
 
 [颈椎病康复指南](http://www.amazon.cn/s/ref=nb_sb_noss?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Dstripbooks&field-keywords=%E9%A2%88%E6%A4%8E%E5%BA%B7%E5%A4%8D%E6%8C%87%E5%8D%97)
-
 
