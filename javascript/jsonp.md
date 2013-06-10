@@ -9,15 +9,15 @@ ajax的缺点只有一个: 不能跨域
 
 > 什么是跨域?一句话解释,不能用相对路径访问的url都是跨域.
 
->> 1. www.baidu.com/path1
-
->> 2. www.baidu.com:81/path1
-
->> 3. https://www.baidu.com/path1
-
->> 4. http://www.baidu.com:80/path1/path2
-
->> 5. http://baidu.com/path1
+	>> 1. www.baidu.com/path1
+	
+	>> 2. www.baidu.com:81/path1
+	
+	>> 3. https://www.baidu.com/path1
+	
+	>> 4. http://www.baidu.com:80/path1/path2
+	
+	>> 5. http://baidu.com/path1
 
 > 能和url-1访问ajax的只有url-4,因为4能通过'../'这个相对路径变成url-1.其他要么是协议不同,要么是端口不同,要么是域名不同.
 
@@ -121,10 +121,10 @@ jsonp客户端在请求中将希望定义的函数写在querystring中.比如上
 调用:
 
 		getJsonP({
-			src: 'http://42.121.108.75:81/path?callback=?',
-			cb: function(x) {
-				console.log(111);
-				console.log(x);
+			src: 'http://www.domain.com/path?callback=?',
+			cb: function(result) {
+				console.log(result);
+				...
 			}
 		});
 
