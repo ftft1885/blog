@@ -15,7 +15,7 @@ shell有很多版本（50多种），但目前unix和linux下用的都是bash这
 
 shell脚本是什么?
 ---------
-shell脚本相当于windows下的批处理,它是一个文件,是多个shell命令的组合.后缀一般是sh.
+shell脚本相当于windows下的批处理,它是一个文件,是多个shell命令的组合.脚本后缀一般是sh.
 
 Hello World
 --------
@@ -48,7 +48,7 @@ hi.sh:
     
 有时还会在文件第一行加上`#!/bin/sh`或者`#!/bin/bash`
 
-`/bin/sh`是linux的bash执行目录,不写也是可以的,因为默认就是bash啦,perl或者其他语言就必须写了.
+`/bin/bash`是linux的bash执行目录,不写也是可以的,因为默认就是bash啦,perl或者其他语言就必须写了.
 
 
 连续执行
@@ -87,7 +87,7 @@ bash怎么知道前面有没有错误呢?这里有标准输出的问题,stdout�
     
 意思就是:显示xxx的内容,如果不存在的化就显示xxx不存在.
 
-试想一下这样一个需求,用nodejs写的要多麻烦...
+试想一下这样一个简单的需求,用nodejs写的要多麻烦...
 
 `&&` 和 `&`
 ---------------
@@ -95,11 +95,11 @@ bash怎么知道前面有没有错误呢?这里有标准输出的问题,stdout�
 
 > 顺便提一下make的参数,如果make时间长的话可以使用`make -j 8`.意思是8线程同时make,电脑有n个线程就是`make -j n`.
 
-`&`表示把前面的放到后台一个进程中执行.
+**`&`表示把前面的放到后台一个进程中执行.**
 
 hi.sh:
 
-   a='https://a248.e.akamai.net/assets.github.com/assets/github2-dbfecd24131ff912b4e9fe4d5a365661e862a5c5.css';
+    a='https://a248.e.akamai.net/assets.github.com/assets/github2-dbfecd24131ff912b4e9fe4d5a365661e862a5c5.css';
     
     b='https://a248.e.akamai.net/assets.github.com/assets/github-28cb64109a7ebb60276b297a5459cd080aa82add.css';
     
@@ -138,13 +138,13 @@ hi.sh:
     
     2013-06-11 14:16:18 (197 KB/s) - `github2-dbfecd24131ff912b4e9fe4d5a365661e862a5c5.css.9.2' saved [195930]
 	
-可以看出所有的wget都是一起发出的,这个就感觉像nodejs中的异步一样,但实际上shell是通过后台新建进程来进行多任务同时进行的.
+可以看出所有的wget都是一起发出的,这个就感觉像nodejs中的异步一样,但实际上shell是通过后台新建进程来同时执行多发任务.
 
 变量
 ------------
 shell的变量只有一种,字符串,这个太棒了,没有其他类型真方便.
 
-当然shell也是可以进行数据运算的,不过这个很不重要.
+当然shell也是可以进行数据运算的,不过这个不是不重要.
 
 ### 变量声明
 
@@ -158,6 +158,43 @@ shell的变量只有一种,字符串,这个太棒了,没有其他类型真方便
 	echo 'a=$a'
 	
 就是前面加一个美元啦..
+
+字符串连接
+----------
+
+	a='abc'
+	b='def'
+	c=$a$b"gh"
+	echo $c # abcbcdgh
+
+反义符
+-------
+用过perl的一定还是很熟悉.反义符就是执行其中的命令,**并把标准输出传到左边的变量中**.
+
+	a=`curl baidu.com`
+	echo $a
+
+它会返回curl在shell中输出的所有值,觉得很像grep.
+
+注释
+-------
+
+### 单行注释
+
+	# one line comment
+
+### 块注释
+
+	<<aa
+	  this
+	  is
+	  block
+	  comment
+	aa
+
+*perl是不是抄了很多shell啊..*
+
+
 
 循环
 -----------
@@ -202,6 +239,144 @@ shell居然还有这么高级的写法.
 
 最简单的写法,还是要注意,只要是数字就是`(())`
 
+数组
+--------
+
+### 数组声明
+
+	arr=(1 2 3 4)
+
+### 输出数组
+
+	echo ${arr[*]}
+
+### 数组长度
+
+	${#arr[*]}
+
+### 修改元素
+
+	arr[2]=2
+
+### 移除元素
+
+	unset arr[2]
+
+### push元素
+
+	arr[任何大于等于数组长度的整数]=2
+
+### 数组分片
+
+	arr=(1 2 3 4)
+	echo ${arr[@]:1:3} # 2 3 4
+
+### 数组替换
+
+	arr=(1 2 3 99 2)
+	echo ${arr[*]} # 1 2 3 99 2
+	echo ${arr[@]/99/100} # 1 2 3 100 2
+
+不会改变原数组
+
+### 数组赋值
+
+	arr=(1 2 3 99 2)
+	arr2=${arr[@]/99/100}
+	echo $arr2
+
+可直接赋值
+
+### 数组遍历
+
+	for i in ${arr[*]}; do
+	  echo $i
+	done
+
+
+函数
+--------
+
+最简单的函数:
+
+	test(){
+	  echo test
+	}
+	test # test
+
+最简单的带参数函数
+
+	hi(){
+	  echo "hello $1"
+	}
+	hi 'shell' # hello shell
+
+
+最简单的有return的函数
+
+	add(){
+	  return $(($1+$2))
+	}
+	add 3 2
+	echo $? # 5
+
+要点:
+
+- 函数声明必须在函数使用之前
+
+- 使用函数: `$(函数名 参数1 参数2)`
+
+- 声明函数,参数不写在括号中,而是用`$1, $2, ..`表示
+
+- 函数执行后的返回值只能通过`$?`获取
+
+- 函数声明时可以加上function关键词,虽然没必要
+
+	function foo(){
+	}
+
+> `$(($1+$2))`表示数学运算,数学运算格式是`$((...))`
+
+### `$#`, `$@`, `$*`
+
+	add(){
+	  echo "args length = $#" # args length = 2
+	  echo "args = $*" args = 3 2
+	  echo "args = $@" args = 3 2
+	  c=$(($1+$2))
+	  return $c
+	}
+	add 3 2
+
+`$#`取参数个数
+
+`$*`和`$@`等于所有参数,暂时没发现`$*`和`$@`有啥区别.
+
+
+case语句
+--------
+
+case语句就是我们熟知的switch,只不过shell中没有switch,不过shell的case语句是我见过最爽的
+
+	a='bbaaab'
+
+	case $a in
+	  3) echo 3;;
+	  *aa*) echo *aa*;;
+	  4) echo 4;;
+	  *)
+	  echo nothing;;
+	
+	esac
+
+要点:
+
+- 注意case的结束语句块的关键词是`esac`就是case倒过来,真蛋疼..
+
+- 使用 `xx)`来匹配值,使用`;;`双分号结束
+
+- 可以使用正则!这就不多说了,什么`|`啊`*`啊随便用的飞起.
+
 
 判断语句
 -----------
@@ -237,6 +412,7 @@ shell居然还有这么高级的写法.
 elif的拼写也是需要注意的.
 
 if块结束符`fi`
+
 
 ### 字符串比较
 
@@ -334,40 +510,10 @@ if块结束符`fi`
 
 加上-e,不管在双引号还是单引号中都可以使用
 
-字符串连接
-----------
 
-	a='abc'
-	b='def'
-	c=$a$b"gh"
-	echo $c # abcbcdgh
 
-反义符
--------
-用过perl的一定还是很熟悉.反义符就是执行其中的命令,**并把标准输出传到左边的变量中**.
-
-	a=`curl baidu.com`
-	echo $a
-
-它会返回curl在shell中输出的所有值,觉得很像grep.
-
-注释
--------
-
-### 单行注释
-
-	# one line comment
-
-### 块注释
-
-	<<aa
-	  this
-	  is
-	  block
-	  comment
-	aa
-
-*perl是不是完全抄了shell啊..*
+待续...
+------------
 
 
 
