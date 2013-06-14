@@ -20,7 +20,7 @@ date:2013/6/14
 
 3. perl中的散列
 ------
-perl叫散列是对的,他根本不是hash..
+散列是hash的中文翻译，但perl真的有散列嘛。
 
     my %hash = (
       'key1' => 'val1',
@@ -56,7 +56,7 @@ value不能用undef来占位,即
 
 这样是会警告的,不能用undef来初始化数组.我个人推荐用`''`空字符串占位
 
-总之perl没有hash
+总之感觉perl没有hash..
 
 cmp
 ------
