@@ -16,7 +16,7 @@ date:2013/6/14
 -----------
 `undef, 0, '', '0'`
 
-你没看错,`'0'`也居然是false...我去你大爷啊.这点上js做的就很完美.
+你没看错,`'0'`居然也是false...我去你大爷啊.这点上js做的就很完美.
 
 3. perl中的散列
 ------
@@ -28,9 +28,9 @@ date:2013/6/14
       'key3' => 'val3'
     );
 
-print keys %hash;
+    print keys %hash;
 
-# output: key1key2val3
+    # output: key1key2val3
 
 我本来觉得这个keys真的碉堡了,没想到就是取数组的奇数个,同理values取得是数组的偶数个
 
