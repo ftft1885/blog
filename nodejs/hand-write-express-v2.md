@@ -50,11 +50,11 @@ express中有一个路由选择，可以完成非常复杂的路由匹配。
 
 匹配还是用的正则定位符，不过看起来很丑的呢，最近太喜欢用正则了，唉！
 
-看这个就知道为什么connect直接放弃了路由表的功能，而全部交给express去用了。要真正完成路由表匹配，还要写不少代码。
+看我的这个就大概猜到为什么connect放弃了路由表的功能，而全部交给express去用了。要真正完成路由表匹配，还要写不少代码。
 
 中间件
 ----------
-connect自己是不是中间件我不知道，但是connect加入其它中间件非常方便，中间件是connect的特色功能。
+connect自己是不是中间件我不知道，但是connect加入其它中间件非常方便，**可以自由使用中间件**是connect的特色功能。
 
 	app.set('static', __dirname + '/static')
 	
@@ -63,15 +63,15 @@ connect自己是不是中间件我不知道，但是connect加入其它中间件
 		timeout: 'xxx'
 	}));
 
-这是两种调用中间件的方法，乍一看觉得第一种简介明了，但细细分析发现并不如此。
+这是两种调用中间件的方法，乍一看觉得第一种简洁明了，但细细分析发现并不如此。
 
 第一种设置static这个全局设置变量为一个路径，难以加上其他参数，除非把第二个变量变为hash。不过这样明显不好，因为路径是最主要的，static反而不重要，而且很难记住。后台调用static还要专门去取这个值，难以封装成一个专门的模块。
 
-第二种使用中间件，中间件不仅不需要什么`'static'`这些专属变量，还可以设置各种可选变量。
+第二种使用中间件，中间件不仅不需要`'static'`这些专属变量，还可以设置各种可选变量。
 
 那这个中间件到底是啥呢？
 
-说到底app.use和app.get以及app.post毫无区别，都是把回调函数加入运行栈（也就是那个stack数组！）
+说到底app.use和app.get以及app.post毫无区别，都是把**回调函数加入运行栈**（也就是那个stack数组！）
 
 来看一下我自己写着玩的static中间件：
 
@@ -79,12 +79,10 @@ connect自己是不是中间件我不知道，但是connect加入其它中间件
 	var fs = require('fs');
 	
 	module.exports = function(root, options) {
-	  console.log(root);
 	  return function(req, res, next) {
 	    var filepath =root + req.pathname;
 	    fs.readFile(filepath, function(err, data) {
 	      if (err) {
-	      console.log(err);
 	        next(err);
 	      } else {
 	        var extname = path.extname(req.pathname);
