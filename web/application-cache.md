@@ -55,7 +55,7 @@ manifest填写的是manifest文件路径，manifest文件保存需要缓存的�
     
     CACHE MANIFEST
     # version 2
-   	xxx.html
+	xxx.html
     ...
     
 ### 查看是否在线
