@@ -175,7 +175,7 @@ shell的变量只有一种,字符串,这个太棒了,没有其他类型真方便
 	a=`curl baidu.com`
 	echo $a
 
-它会返回curl在shell中标准输出的所有字符,觉得很像grep.
+它会返回curl在shell中标准输出的所有字符.
 
 注释
 -------
