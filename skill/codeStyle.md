@@ -236,7 +236,82 @@ c中推荐大括号在同一列
 		doSomething();
 	}
 
-至于为什么条件语句前后有空格，这完全因为如果括号间统一加空格会造成大量灾难。因为调用函数，提高优先级等都会用到括号，而事实上，括号中加上空格看起来过于松散。括号本来就有分隔的作用，加空格是多余且错误的。
+至于为什么条件语句前后不该有空格，这完全因为如果括号间统一加空格会造成大量灾难。调用函数，提高优先级等都会用到括号，而事实上，括号中加上空格看起来过于松散。括号本来就有分隔的作用，加空格是多余且错误的。
+
+可维护的JS中关于小括号内两边空格问题的描述：
+
+jQuery风格：
+
+	doSomething( item );
+
+例外情况:
+
+	doSomething(function () {});
+	doSomething({ item: item })
+	doSomething([ 1, 2 ]);
+
+如果他们也加上空格，将会这样
+
+	doSomething( function () {} );
+	doSomething( { item: item } )
+	doSomething( [ 1, 2 ] );
+
+显然这是不可以的。用书上的话来说，如果一个标准有超过一个例外，那这种标准是不正确的，会给开发者带来疑惑。
+
+
+
+### 函数
+
+#### 函数声明
+
+正确：
+
+	function doSomething() {
+		...
+	}
+
+错误:
+
+	function doSomething () {
+		...
+	}
+
+错误原因： 函数名和小括号之间不能有空格
+
+#### 匿名函数赋值
+
+正确:
+
+	var doSomething = function() {
+		...
+	}
+
+错误:
+
+	var doSomething = function () {
+		...
+	}
+
+总而言之，函数名和小括号之间有空格，会使得函数松散，而且看起来像块语句。
+
+
+### 块语句
+	
+	try {
+		something()
+	} catch (ex) {
+		handleError(ex)
+	} finally {
+		continue()
+	}
+
+catch和括号间有空格
+
+	while (item) {
+		...
+	}
+
+while和括号间有空格
 
 明天北上培训啦，睡觉，待续。。
 
