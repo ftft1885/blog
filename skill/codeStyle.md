@@ -210,26 +210,26 @@ c中推荐大括号在同一列
 
 ### 块语句间隔
 
-// 正确
-if (condition) {
-	doSomething();
-}
-
-// 错误， if， 条件语句， 左括号之间没有空格
-if(condition){
-	doSomething();
-}
-
-// 错误, 条件语句和左括号之间没有空格
-if (condiftion){
-	doSomething();
-}
-
-
-// 错误， if和条件语句之间没有空格
-if(condition) {
-	doSomething();
-}
+	// 正确
+	if (condition) {
+		doSomething();
+	}
+	
+	// 错误， if， 条件语句， 左括号之间没有空格
+	if(condition){
+		doSomething();
+	}
+	
+	// 错误, 条件语句和左括号之间没有空格
+	if (condiftion){
+		doSomething();
+	}
+	
+	
+	// 错误， if和条件语句之间没有空格
+	if(condition) {
+		doSomething();
+	}
 
 	// 错误，条件语句前后有空格
 	if ( condition ) {
