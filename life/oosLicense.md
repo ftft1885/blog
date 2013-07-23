@@ -86,10 +86,7 @@ LGPL以前叫Libary General Public License，如果你使用一个LGPL下的库�
 
 LGPL和GPL最大的不同是LGPL允许在私有软件上使用它，而GPL只允许在自由软件上使用。
 
-
-
-
-Licensing:WTFPL
+WTFPL (WHAT THE FUCK PUBLIC LICENSE)
 ---------
 
 最弱的许可证。		
@@ -112,6 +109,10 @@ Licensing:WTFPL
 
 
 
+
+选择开源许可证
+=======
+
 这么多开源许可证怎么选择呢？
 
 github来帮你，妈妈再也不用担心我选许可证了
@@ -129,6 +130,7 @@ D-Link德国违反GPLv3.
 暴风影音，qq播放器，射手违反ffmpeg（GPL许可证）
 
 Android使用Apache v2违反GPL许可。
+
 
 商业协议和开源许可证并存
 --------
