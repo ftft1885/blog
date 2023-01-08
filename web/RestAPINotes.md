@@ -41,7 +41,7 @@ date:2013/1/17
    		{ 'Content-Type': 'application/json',
 	      'Content-Length': 3072,
 	      'Content-md5': '0d35803ba5e0af468002e0e7c1dff541',
-	      Authorization: 'OSS ddPofY9mfxnGNEsb:J/kDu5f/8IJb35lsjZpxztW9SG8=',
+	      Authorization: 'OSS *******',
 	      Date: 'Thu, 17 Jan 2013 14:18:27 GMT',
 	      Host: 'oss.aliyuncs.com:80' },
 	  hostname: 'oss.aliyuncs.com',
